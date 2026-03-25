@@ -25,7 +25,7 @@ export default function Home() {
         <div className="container flex items-center justify-between h-16">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center">
-              <Microscope className="w-5 h-5 text-accent" />
+              <Microscope className="w-5 h-5 text-accent" style={{backgroundColor: '#3e3c3c'}} />
             </div>
             <span className="font-semibold text-lg">ResearchHub</span>
           </div>
@@ -61,7 +61,7 @@ export default function Home() {
               <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
                 Connect with Research
                 <br />
-                <span className="text-accent">Excellence</span>
+                <span className="text-accent" style={{color: '#226241'}}>Excellence</span>
               </h1>
               
               <p className="text-lg text-muted-foreground max-w-xl">
@@ -83,15 +83,15 @@ export default function Home() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-4">
               <div>
-                <p className="text-2xl font-bold text-accent">5</p>
+                <p className="text-2xl font-bold" style={{color: '#226241'}}>5</p>
                 <p className="text-xs text-muted-foreground">Research Labs</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-accent">4</p>
+                <p className="text-2xl font-bold" style={{color: '#226241'}}>4</p>
                 <p className="text-xs text-muted-foreground">Expert Researchers</p>
               </div>
               <div>
-                <p className="text-2xl font-bold text-accent">5</p>
+                <p className="text-2xl font-bold" style={{color: '#226241'}}>5</p>
                 <p className="text-xs text-muted-foreground">Equipment Items</p>
               </div>
             </div>
