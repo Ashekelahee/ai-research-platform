@@ -2,10 +2,12 @@ import { useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Microscope, Zap, Users, ArrowRight, Sparkles } from "lucide-react";
+import { Microscope, Zap, Users, ArrowRight, Sparkles, Mail, Phone, MapPin } from "lucide-react";
 import { useLocation } from "wouter";
 import { getLoginUrl } from "@/const";
 import AISearchBar from "@/components/AISearchBar";
+import ResearchNetworkAnimation from "@/components/ResearchNetworkAnimation";
+import ContactCard from "@/components/ContactCard";
 
 export default function Home() {
   const { user, isAuthenticated } = useAuth();
@@ -46,30 +48,67 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="container py-16 md:py-24">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          {/* Headline */}
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20">
-              <Sparkles className="w-4 h-4 text-accent" />
-              <span className="text-sm font-medium text-accent">AI-Powered Research Matching</span>
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Left: Content */}
+          <div className="space-y-8">
+            {/* Headline */}
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20">
+                <Sparkles className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium text-accent">AI-Powered Research Matching</span>
+              </div>
+              
+              <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
+                Connect with Research
+                <br />
+                <span className="text-accent">Excellence</span>
+              </h1>
+              
+              <p className="text-lg text-muted-foreground max-w-xl">
+                Find university labs, equipment, and researchers for your collaboration. 
+                Powered by AI-driven semantic search that understands your research needs.
+              </p>
             </div>
-            
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight leading-tight">
-              Connect with Research
-              <br />
-              <span className="text-accent">Excellence</span>
-            </h1>
-            
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Find university labs, equipment, and researchers for your collaboration. 
-              Powered by AI-driven semantic search that understands your research needs.
-            </p>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button size="lg" onClick={() => setLocation("/search-results")}>
+                Explore Labs <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+              <Button size="lg" variant="outline">
+                Learn More
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 pt-4">
+              <div>
+                <p className="text-2xl font-bold text-accent">5</p>
+                <p className="text-xs text-muted-foreground">Research Labs</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-accent">4</p>
+                <p className="text-xs text-muted-foreground">Expert Researchers</p>
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-accent">5</p>
+                <p className="text-xs text-muted-foreground">Equipment Items</p>
+              </div>
+            </div>
           </div>
 
-          {/* AI Search Bar */}
-          <div className="mt-12">
-            <AISearchBar onResults={handleSearchResults} />
+          {/* Right: Animation */}
+          <div className="h-96 md:h-full min-h-96">
+            <ResearchNetworkAnimation />
           </div>
+        </div>
+      </section>
+
+      {/* AI Search Bar */}
+      <section className="container py-12 border-t border-border/40">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold mb-8 text-center">Search for Research Opportunities</h2>
+          <AISearchBar onResults={handleSearchResults} />
         </div>
       </section>
 
@@ -133,6 +172,29 @@ export default function Home() {
               </h3>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="container py-16 border-t border-border/40">
+        <h2 className="text-2xl font-bold mb-8 text-center">Get in Touch</h2>
+        <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+          <ContactCard
+            name="General Inquiries"
+            email="info@uef.fi"
+            phone="+358 50 000 0000"
+            location="Joensuu Campus, Finland"
+            departmentColor="#6366f1"
+            departmentColorLight="#e0e7ff"
+          />
+          <ContactCard
+            name="Research Partnerships"
+            email="research@uef.fi"
+            phone="+358 50 111 1111"
+            website="https://www.uef.fi"
+            departmentColor="#22c55e"
+            departmentColorLight="#dcfce7"
+          />
         </div>
       </section>
 

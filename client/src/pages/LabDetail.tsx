@@ -6,6 +6,7 @@ import { ArrowLeft, Mail, Phone, Globe, Users, Microscope } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import CollaborationForm from "@/components/CollaborationForm";
+import ContactCard from "@/components/ContactCard";
 
 export default function LabDetail() {
   const params = useParams();
@@ -265,44 +266,20 @@ export default function LabDetail() {
           {/* Sidebar */}
           <div className="space-y-4">
             {/* Contact Card */}
-            <Card className="p-6 border-border/40 sticky top-20">
-              <h3 className="font-semibold mb-4 text-sm">Contact Information</h3>
-              <div className="space-y-3 text-sm">
-                {lab.contactEmail && (
-                  <a
-                    href={`mailto:${lab.contactEmail}`}
-                    className="flex items-center gap-2 text-accent hover:underline"
-                  >
-                    <Mail className="w-4 h-4 flex-shrink-0" />
-                    <span className="break-all text-xs">{lab.contactEmail}</span>
-                  </a>
-                )}
-                {lab.contactPhone && (
-                  <a
-                    href={`tel:${lab.contactPhone}`}
-                    className="flex items-center gap-2 text-accent hover:underline"
-                  >
-                    <Phone className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-xs">{lab.contactPhone}</span>
-                  </a>
-                )}
-                {lab.website && (
-                  <a
-                    href={lab.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-accent hover:underline"
-                  >
-                    <Globe className="w-4 h-4 flex-shrink-0" />
-                    <span className="text-xs">Website</span>
-                  </a>
-                )}
-              </div>
-
-              <Button className="w-full mt-6" size="sm">
+            <div className="sticky top-20">
+              <ContactCard
+                name={lab.name}
+                email={lab.contactEmail}
+                phone={lab.contactPhone}
+                website={lab.website}
+                location={lab.location}
+                departmentColor={departmentColor}
+                departmentColorLight={departmentColorLight}
+              />
+              <Button className="w-full mt-4" size="sm">
                 Request Collaboration
               </Button>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
