@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, users, labs, researchers, equipment, collaborationRequests, embeddings, InsertCollaborationRequest, InsertEmbedding } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,97 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+/**
+ * Lab queries
+ */
+export async function getAllLabs() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(labs);
+}
+
+export async function getLabById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(labs).where(eq(labs.id, id)).limit(1);
+  return result[0];
+}
+
+/**
+ * Researcher queries
+ */
+export async function getResearchersByLabId(labId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(researchers).where(eq(researchers.labId, labId));
+}
+
+export async function getResearcherById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(researchers).where(eq(researchers.id, id)).limit(1);
+  return result[0];
+}
+
+/**
+ * Equipment queries
+ */
+export async function getEquipmentByLabId(labId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(equipment).where(eq(equipment.labId, labId));
+}
+
+export async function getEquipmentById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(equipment).where(eq(equipment.id, id)).limit(1);
+  return result[0];
+}
+
+/**
+ * Collaboration Request queries
+ */
+export async function createCollaborationRequest(data: InsertCollaborationRequest) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.insert(collaborationRequests).values(data);
+}
+
+export async function getCollaborationRequestById(id: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(collaborationRequests).where(eq(collaborationRequests.id, id)).limit(1);
+  return result[0];
+}
+
+export async function getCollaborationRequests(filters?: { status?: string; labId?: number }) {
+  const db = await getDb();
+  if (!db) return [];
+  let query = db.select().from(collaborationRequests) as any;
+  if (filters?.status) {
+    query = query.where(eq(collaborationRequests.status, filters.status as any));
+  }
+  if (filters?.labId) {
+    query = query.where(eq(collaborationRequests.labId, filters.labId));
+  }
+  return query;
+}
+
+/**
+ * Embedding queries
+ */
+export async function saveEmbedding(data: InsertEmbedding) {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  return db.insert(embeddings).values(data);
+}
+
+export async function getEmbeddingsByEntity(entityType: string, entityId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(embeddings)
+    .where(and(eq(embeddings.entityType, entityType as any), eq(embeddings.entityId, entityId)))
+    .limit(1);
+  return result[0];
+}

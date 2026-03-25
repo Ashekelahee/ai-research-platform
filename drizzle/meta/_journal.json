@@ -1,5 +1,34 @@
 {
   "version": "7",
   "dialect": "mysql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1774454330246,
+      "tag": "0000_lying_magma",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1774454522368,
+      "tag": "0001_late_mandroid",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1774454536031,
+      "tag": "0002_closed_lady_vermin",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1774455111269,
+      "tag": "0003_abandoned_nemesis",
+      "breakpoints": true
+    }
+  ]
 }
