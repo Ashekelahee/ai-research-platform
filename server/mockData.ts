@@ -19,6 +19,7 @@ export interface Lab {
   imageUrl: string;
   departmentColor?: string; // Hex color for department
   departmentColorLight?: string; // Light variant
+  backgroundGradient?: string; // Soft gradient background
 }
 
 export interface Researcher {
@@ -94,6 +95,7 @@ export const mockLabs: Lab[] = [
     imageUrl: "https://via.placeholder.com/400x300?text=Photonics+Lab",
     departmentColor: "#6366f1",
     departmentColorLight: "#e0e7ff",
+    backgroundGradient: "linear-gradient(135deg, #e0e7ff 0%, #f5f3ff 50%, #faf5ff 100%)",
   },
   {
     id: 2,
@@ -118,6 +120,7 @@ export const mockLabs: Lab[] = [
     imageUrl: "https://via.placeholder.com/400x300?text=Chemistry+Lab",
     departmentColor: "#f97316",
     departmentColorLight: "#fed7aa",
+    backgroundGradient: "linear-gradient(135deg, #fed7aa 0%, #fef3c7 50%, #fffbeb 100%)",
   },
   {
     id: 3,
@@ -141,6 +144,7 @@ export const mockLabs: Lab[] = [
     imageUrl: "https://via.placeholder.com/400x300?text=Forestry+Lab",
     departmentColor: "#22c55e",
     departmentColorLight: "#dcfce7",
+    backgroundGradient: "linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #f8fdf5 100%)",
   },
   {
     id: 4,
@@ -164,6 +168,7 @@ export const mockLabs: Lab[] = [
     imageUrl: "https://via.placeholder.com/400x300?text=XR+Lab",
     departmentColor: "#a855f7",
     departmentColorLight: "#f3e8ff",
+    backgroundGradient: "linear-gradient(135deg, #f3e8ff 0%, #faf5ff 50%, #fdfbff 100%)",
   },
   {
     id: 5,
@@ -187,6 +192,7 @@ export const mockLabs: Lab[] = [
     imageUrl: "https://via.placeholder.com/400x300?text=Natural+Resources",
     departmentColor: "#06b6d4",
     departmentColorLight: "#cffafe",
+    backgroundGradient: "linear-gradient(135deg, #cffafe 0%, #ecfdf5 50%, #f0fdfa 100%)",
   },
 ];
 

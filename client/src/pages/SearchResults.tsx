@@ -49,7 +49,7 @@ export default function SearchResults() {
 
   if (!results) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-slate-100">
         <div className="container py-20">
           <p className="text-muted-foreground">Loading search results...</p>
         </div>
@@ -61,9 +61,9 @@ export default function SearchResults() {
   const equipment = results.equipment || [];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-50 to-slate-100">
       {/* Header */}
-      <div className="border-b border-border/40 bg-card/50 sticky top-0 z-40">
+      <div className="border-b border-border/40 bg-white/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container py-6">
           <Button
             variant="ghost"
@@ -82,7 +82,7 @@ export default function SearchResults() {
                 placeholder="Refine your search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 text-sm"
+                className="flex-1 text-sm bg-white"
               />
               <Button type="submit" size="sm">
                 Search
@@ -122,14 +122,14 @@ export default function SearchResults() {
         {selectedCategory === "labs" && (
           <div className="space-y-4">
             {labs.length === 0 ? (
-              <Card className="p-8 text-center border-border/40">
+              <Card className="p-8 text-center border-border/40 bg-white/80">
                 <p className="text-muted-foreground">No labs found matching your search.</p>
               </Card>
             ) : (
               labs.map((lab) => (
                 <Card
                   key={lab.id}
-                  className="p-6 hover:shadow-md transition-all cursor-pointer group border-border/40"
+                  className="p-6 hover:shadow-md transition-all cursor-pointer group border-border/40 bg-white/90 backdrop-blur-sm"
                   onClick={() => setLocation(`/labs/${lab.id}`)}
                 >
                   <div className="flex justify-between items-start mb-3">
@@ -199,14 +199,14 @@ export default function SearchResults() {
         {selectedCategory === "equipment" && (
           <div className="space-y-4">
             {equipment.length === 0 ? (
-              <Card className="p-8 text-center border-border/40">
+              <Card className="p-8 text-center border-border/40 bg-white/80">
                 <p className="text-muted-foreground">No equipment found matching your search.</p>
               </Card>
             ) : (
               equipment.map((item) => (
                 <Card
                   key={item.id}
-                  className="p-6 hover:shadow-md transition-all cursor-pointer group border-border/40"
+                  className="p-6 hover:shadow-md transition-all cursor-pointer group border-border/40 bg-white/90 backdrop-blur-sm"
                   onClick={() => setLocation(`/equipment/${item.id}`)}
                 >
                   <div className="flex justify-between items-start mb-3">

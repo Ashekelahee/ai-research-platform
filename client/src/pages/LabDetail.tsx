@@ -43,11 +43,12 @@ export default function LabDetail() {
 
   const departmentColor = lab?.departmentColor || "#6366f1";
   const departmentColorLight = lab?.departmentColorLight || "#e0e7ff";
+  const backgroundGradient = lab?.backgroundGradient || `linear-gradient(135deg, ${departmentColorLight} 0%, #f5f3ff 100%)`;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: departmentColorLight }}>
+    <div className="min-h-screen" style={{ background: backgroundGradient }}>
       {/* Header */}
-      <div className="border-b border-border/40 bg-card/50">
+      <div className="border-b border-border/40 bg-white/70 backdrop-blur-sm">
         <div className="container py-6">
           <Button
             variant="ghost"
