@@ -134,7 +134,7 @@ export default function SearchResults() {
                 >
                   <div className="flex justify-between items-start mb-3">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold group-hover:text-accent transition">
+                      <h3 className="text-lg font-semibold group-hover:text-accent transition" style={{color: '#046c10'}}>
                         {lab.name}
                       </h3>
                       <p className="text-xs text-muted-foreground">{lab.department}</p>
@@ -171,6 +171,7 @@ export default function SearchResults() {
                         <span
                           key={idx}
                           className="px-2 py-1 bg-accent/10 text-accent rounded text-xs font-medium"
+                          style={{color: '#046c10'}}
                         >
                           {field}
                         </span>
