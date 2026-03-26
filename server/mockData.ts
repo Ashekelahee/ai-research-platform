@@ -14,6 +14,10 @@ export interface Lab {
   website: string;
   researchFields: string[];
   services: string[];
+  facilities: string[]; // List of available facilities
+  rooms: string[]; // Available rooms/spaces
+  accessLevel: 'public' | 'restricted' | 'staffOnly' | 'contractOnly'; // Access restrictions
+  agreementRequired: boolean; // Whether agreement is needed
   impactScore: string;
   publicationsCount: number;
   imageUrl: string;
@@ -51,6 +55,9 @@ export interface Equipment {
   yearAcquired: number;
   available: boolean;
   bookingStatus: "available" | "booked" | "maintenance";
+  requiresTraining: boolean; // Whether training is required to use
+  restricted: boolean; // Whether access is restricted
+  costType: 'free' | 'hourly' | 'project_based' | 'negotiable'; // Cost structure
   imageUrl: string;
 }
 
@@ -64,10 +71,13 @@ export interface CollaborationRequest {
   researcherId?: number;
   equipmentId?: number;
   collaborationType: "contract_research" | "joint_project" | "pilot_testing" | "consultation";
+  projectType: string; // Type of project being proposed
+  ndaRequired: boolean; // Whether NDA is required
+  customAgreement: boolean; // Whether custom agreement is needed
   description: string;
   budget?: string;
   timeline?: string;
-  status: "pending" | "reviewed" | "accepted" | "rejected" | "completed";
+  status: "pending" | "reviewed" | "needInfo" | "accepted" | "rejected" | "completed";
   createdAt: Date;
 }
 
@@ -93,6 +103,10 @@ export const mockLabs: Lab[] = [
     impactScore: "8.5",
     publicationsCount: 156,
     imageUrl: "https://via.placeholder.com/400x300?text=Photonics+Lab",
+    facilities: ["Laser laboratory", "Optical measurement room", "Fabrication workshop"],
+    rooms: ["Main lab", "Measurement room", "Storage"],
+    accessLevel: 'restricted',
+    agreementRequired: true,
     departmentColor: "#6366f1",
     departmentColorLight: "#e0e7ff",
     backgroundGradient: "linear-gradient(135deg, #e0e7ff 0%, #f5f3ff 50%, #faf5ff 100%)",
@@ -118,6 +132,10 @@ export const mockLabs: Lab[] = [
     impactScore: "8.2",
     publicationsCount: 203,
     imageUrl: "https://via.placeholder.com/400x300?text=Chemistry+Lab",
+    facilities: ["Analysis laboratory", "Instrument room", "Sample preparation area"],
+    rooms: ["Main lab", "Instrument room", "Office"],
+    accessLevel: 'contractOnly',
+    agreementRequired: true,
     departmentColor: "#f97316",
     departmentColorLight: "#fed7aa",
     backgroundGradient: "linear-gradient(135deg, #fed7aa 0%, #fef3c7 50%, #fffbeb 100%)",
@@ -142,6 +160,10 @@ export const mockLabs: Lab[] = [
     impactScore: "8.8",
     publicationsCount: 189,
     imageUrl: "https://via.placeholder.com/400x300?text=Forestry+Lab",
+    facilities: ["Testing laboratory", "Wood processing area", "Biomass analysis lab"],
+    rooms: ["Main lab", "Testing chamber", "Storage"],
+    accessLevel: 'public',
+    agreementRequired: false,
     departmentColor: "#22c55e",
     departmentColorLight: "#dcfce7",
     backgroundGradient: "linear-gradient(135deg, #dcfce7 0%, #f0fdf4 50%, #f8fdf5 100%)",
@@ -166,6 +188,10 @@ export const mockLabs: Lab[] = [
     impactScore: "8.0",
     publicationsCount: 127,
     imageUrl: "https://via.placeholder.com/400x300?text=XR+Lab",
+    facilities: ["VR studio", "Motion capture room", "Simulation lab"],
+    rooms: ["VR studio", "Motion capture", "Control room"],
+    accessLevel: 'restricted',
+    agreementRequired: true,
     departmentColor: "#a855f7",
     departmentColorLight: "#f3e8ff",
     backgroundGradient: "linear-gradient(135deg, #f3e8ff 0%, #faf5ff 50%, #fdfbff 100%)",
@@ -190,6 +216,10 @@ export const mockLabs: Lab[] = [
     impactScore: "7.9",
     publicationsCount: 142,
     imageUrl: "https://via.placeholder.com/400x300?text=Natural+Resources",
+    facilities: ["Field lab", "Water analysis lab", "Monitoring station"],
+    rooms: ["Main lab", "Analysis room", "Equipment storage"],
+    accessLevel: 'public',
+    agreementRequired: false,
     departmentColor: "#06b6d4",
     departmentColorLight: "#cffafe",
     backgroundGradient: "linear-gradient(135deg, #cffafe 0%, #ecfdf5 50%, #f0fdfa 100%)",
@@ -276,11 +306,13 @@ export const mockEquipment: Equipment[] = [
       cooling: "Water-cooled",
     },
     manufacturer: "IPG Photonics",
-    model: "YLS-1000",
-    yearAcquired: 2021,
-    available: true,
-    bookingStatus: "available",
-    imageUrl: "https://via.placeholder.com/300x200?text=Fiber+Laser",
+    model: "YLS-1000",    yearAcquired: 2023,
+    available: false,
+    bookingStatus: "booked",
+    requiresTraining: true,
+    restricted: true,
+    costType: 'negotiable',
+    imageUrl: "https://via.placeholder.com/300x200?text=Motion+Capture",
   },
   {
     id: 2,
@@ -303,6 +335,9 @@ export const mockEquipment: Equipment[] = [
     yearAcquired: 2022,
     available: true,
     bookingStatus: "available",
+    requiresTraining: true,
+    restricted: true,
+    costType: 'project_based',
     imageUrl: "https://via.placeholder.com/300x200?text=ICP-MS",
   },
   {
@@ -322,6 +357,9 @@ export const mockEquipment: Equipment[] = [
     yearAcquired: 2020,
     available: true,
     bookingStatus: "available",
+    requiresTraining: false,
+    restricted: false,
+    costType: 'hourly',
     imageUrl: "https://via.placeholder.com/300x200?text=Durability+Chamber",
   },
   {
@@ -339,9 +377,12 @@ export const mockEquipment: Equipment[] = [
     manufacturer: "Vicon",
     model: "Vantage",
     yearAcquired: 2023,
-    available: false,
-    bookingStatus: "booked",
-    imageUrl: "https://via.placeholder.com/300x200?text=Motion+Capture",
+    available: true,
+    bookingStatus: "available",
+    requiresTraining: true,
+    restricted: false,
+    costType: 'hourly',
+    imageUrl: "https://via.placeholder.com/300x200?text=Fiber+Laser",
   },
   {
     id: 5,
@@ -360,6 +401,9 @@ export const mockEquipment: Equipment[] = [
     yearAcquired: 2021,
     available: true,
     bookingStatus: "available",
+    requiresTraining: false,
+    restricted: false,
+    costType: 'free',
     imageUrl: "https://via.placeholder.com/300x200?text=Water+Quality",
   },
 ];

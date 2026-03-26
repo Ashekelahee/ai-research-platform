@@ -156,14 +156,20 @@ export const appRouter = router({
 
           const parsed = JSON.parse(content);
 
-          // Filter labs based on research areas
+          // Filter labs based on research areas, description, and services
           const allLabs = getAllLabs();
           const matchedLabs = allLabs.filter((lab) => {
             const fields = lab.researchFields || [];
+            const description = (lab.description || "").toLowerCase();
+            const services = (lab.services || []).join(" ").toLowerCase();
+            const searchableText = `${description} ${services}`;
+            
             return parsed.researchAreas.some((area: string) =>
               fields.some((field) =>
                 field.toLowerCase().includes(area.toLowerCase())
-              )
+              ) || searchableText.includes(area.toLowerCase())
+            ) || parsed.searchTerms.some((term: string) =>
+              searchableText.includes(term.toLowerCase())
             );
           });
 
@@ -174,11 +180,17 @@ export const appRouter = router({
             matchedEquipment.push(...labEquip);
           }
 
-          // Filter equipment by type
+          // Filter equipment by type and capabilities
           const filteredEquipment = matchedEquipment.filter((equip) => {
             const category = (equip.category || "").toLowerCase();
+            const description = (equip.description || "").toLowerCase();
+            const capabilities = (equip.capabilities || []).join(" ").toLowerCase();
+            const searchableText = `${category} ${description} ${capabilities}`;
+            
             return parsed.equipmentTypes.some((type: string) =>
-              category.toLowerCase().includes(type.toLowerCase())
+              searchableText.includes(type.toLowerCase())
+            ) || parsed.searchTerms.some((term: string) =>
+              searchableText.includes(term.toLowerCase())
             );
           });
 
@@ -215,6 +227,9 @@ export const appRouter = router({
             "pilot_testing",
             "consultation",
           ]),
+          projectType: z.string(),
+          ndaRequired: z.boolean(),
+          customAgreement: z.boolean(),
           description: z.string(),
           budget: z.string().optional(),
           timeline: z.string().optional(),

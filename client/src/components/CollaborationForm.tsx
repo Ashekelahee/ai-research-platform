@@ -29,6 +29,9 @@ export default function CollaborationForm({
     requesterCompany: "",
     requesterPhone: "",
     collaborationType: "contract_research" as const,
+    projectType: "",
+    ndaRequired: false,
+    customAgreement: false,
     description: "",
     budget: "",
     timeline: "",
@@ -42,6 +45,7 @@ export default function CollaborationForm({
     try {
       await createMutation.mutateAsync({
         ...formData,
+        projectType: formData.projectType || "Research Collaboration",
         labId,
         researcherId,
         equipmentId,
@@ -54,6 +58,9 @@ export default function CollaborationForm({
         requesterCompany: "",
         requesterPhone: "",
         collaborationType: "contract_research",
+        projectType: "",
+        ndaRequired: false,
+        customAgreement: false,
         description: "",
         budget: "",
         timeline: "",
@@ -138,6 +145,43 @@ export default function CollaborationForm({
             <SelectItem value="consultation">Consultation</SelectItem>
           </SelectContent>
         </Select>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium mb-2">Project Type</label>
+        <Input
+          type="text"
+          value={formData.projectType}
+          onChange={(e) =>
+            setFormData({ ...formData, projectType: e.target.value })
+          }
+          placeholder="e.g., Material Testing, Equipment Validation"
+        />
+      </div>
+
+      <div className="space-y-3 p-4 bg-muted/30 rounded-lg border border-border/40">
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={formData.ndaRequired}
+            onChange={(e) =>
+              setFormData({ ...formData, ndaRequired: e.target.checked })
+            }
+            className="w-4 h-4 rounded"
+          />
+          <span className="text-sm font-medium">NDA Required</span>
+        </label>
+        <label className="flex items-center gap-3 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={formData.customAgreement}
+            onChange={(e) =>
+              setFormData({ ...formData, customAgreement: e.target.checked })
+            }
+            className="w-4 h-4 rounded"
+          />
+          <span className="text-sm font-medium">Custom Agreement Needed</span>
+        </label>
       </div>
 
       <div>
