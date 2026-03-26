@@ -260,7 +260,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-border/40 pt-6 text-center text-xs text-muted-foreground">
-            <p>&copy; 2026 ResearchHub. All rights reserved.</p>
+            <p>&copy; 2026 Ashik Elahee. All rights reserved.</p>
           </div>
         </div>
       </footer>
